@@ -35,7 +35,7 @@ public class OAuthController {
 
     @ResponseBody
     @GetMapping("/kakao")
-    public ResponseEntity<ResponseDTO> kakaoCallback(@RequestParam String code) {
+    public ResponseEntity<ResponseDTO> kakaoCallback(@RequestParam String code, HttpSession session) {
         System.out.println("code = " + code);
         String access_Token = oAuthService.getKakaoAccessToken(code);
         System.out.println("access_Token = " + access_Token);
@@ -43,13 +43,22 @@ public class OAuthController {
         HashMap<String, Object> userInfo = oAuthService.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
 
-//            클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-//        if (userInfo.get("email") != null) {
-//            session.setAttribute("userNickname", userInfo.get("nickname"));
-//            session.setAttribute("access_Token", access_Token);
-//        }
+//            클라이언트의 닉네임이 존재할 때 세션에 해당 닉네임과 토큰 등록
+        if (userInfo.get("nickname") != null) {
+            session.setAttribute("userNickname", userInfo.get("nickname"));
+            session.setAttribute("access_Token", access_Token);
+        }
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카카오 정보 조회 성공", "dd"));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카카오 로그인 성공", ""));
     }
+
+    @GetMapping("/logout")
+    public ResponseEntity<ResponseDTO> logout(HttpSession session) {
+        oAuthService.kakaoLogout((String)session.getAttribute("access_Token"));
+        session.removeAttribute("access_Token");
+        session.removeAttribute("userId");
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카카오 로그아웃 성공", ""));
+    }
+
 
 }
