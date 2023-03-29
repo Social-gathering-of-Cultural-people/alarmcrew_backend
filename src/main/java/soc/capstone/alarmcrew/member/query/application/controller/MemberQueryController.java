@@ -9,6 +9,22 @@ import org.springframework.web.bind.annotation.RestController;
 import soc.capstone.alarmcrew.common.ResponseDTO;
 import soc.capstone.alarmcrew.member.query.application.service.MemberQueryService;
 
+/**
+ * <pre>
+ * Class : MemberQueryController
+ * Comment: Member Select Controller
+ * History
+ * ================================================================
+ * DATE             AUTHOR           NOTE
+ * ----------------------------------------------------------------
+ * 2023-03-28         손준형           최초 생성
+ * </pre>
+ *
+ * @author 손준형
+ * @version 1(클래스 버전)
+ * @see
+ */
+
 @RestController
 @RequestMapping("/members")
 public class MemberQueryController {
