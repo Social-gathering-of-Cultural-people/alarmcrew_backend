@@ -5,6 +5,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * <pre>
+ * Class : SwaggerController
+ * Comment: Swagger example api
+ * History
+ * ================================================================
+ * DATE             AUTHOR           NOTE
+ * ----------------------------------------------------------------
+ * 2023-04-04         손준형           최초 생성
+ * </pre>
+ *
+ * @author 손준형
+ * @version 1(클래스 버전)
+ * @see
+ */
 @RestController
 @RequestMapping("/test/api")
 @Api(tags = "test용 api") // 해당 컨트롤러에 대한 내용 설정
