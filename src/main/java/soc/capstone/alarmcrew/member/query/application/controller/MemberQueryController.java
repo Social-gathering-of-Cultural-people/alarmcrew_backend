@@ -33,9 +33,4 @@ public class MemberQueryController {
 
     public MemberQueryController(MemberQueryService memberQueryService){this.memberQueryService = memberQueryService;}
 
-    @GetMapping("/example")
-    public ResponseEntity<ResponseDTO> ex(){
-        System.out.println("예시 API");
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "친구요청 정보 조회 성공", "dd"));
-    }
 }

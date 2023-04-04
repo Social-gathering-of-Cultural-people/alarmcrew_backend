@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import soc.capstone.alarmcrew.common.ResponseDTO;
+import soc.capstone.alarmcrew.member.query.application.dto.MemberDTO;
 import soc.capstone.alarmcrew.member.query.application.service.OAuthService;
 
 import javax.servlet.http.HttpSession;
@@ -35,10 +36,10 @@ public class OAuthController {
 
     public OAuthController(OAuthService oAuthService){this.oAuthService = oAuthService;}
 
-    @ApiOperation(value = "Kakao Login", notes = "카카오 access token을 받아 정보(회원코드, 닉네임, 프로필사진)를 return합니다.") // 매핑 메소드에 대한 설명
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "code", value = "access_code 값", required = true, dataType = "String", paramType = "query"),
-    })
+    @ApiOperation(value = "카카오 info 받아오기", notes = "카카오 access_token을 받아 정보(회원코드, 닉네임, 프로필사진)를 return") // 매핑 메소드에 대한 설명
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "code", value = "access_code 값", required = true, dataType = "String", paramType = "query"),
+//    })
     @ApiResponses({ // 응답 코드에 대한 설명
             @ApiResponse(code=200, message="성공")
     })
@@ -63,7 +64,7 @@ public class OAuthController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카카오 로그인 성공", ""));
     }
 
-    @ApiOperation(value = "Kakao Logout", notes = "카카오 로그아웃입니다.") // 매핑 메소드에 대한 설명
+    @ApiOperation(value = "카카오 로그아웃", notes = "카카오 로그아웃") // 매핑 메소드에 대한 설명
 //    @ApiImplicitParams({
 //            @ApiImplicitParam(name = "code", value = "access_code 값", required = true, dataType = "String", paramType = "query")
 //    })
@@ -77,6 +78,18 @@ public class OAuthController {
         session.removeAttribute("userNickname");
         session.removeAttribute("profile_image");
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카카오 로그아웃 성공", ""));
+    }
+
+    @ApiOperation(value = "회원탈퇴", notes = "memberCode 필요") // 매핑 메소드에 대한 설명
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "memberCode", value = "memberCode 값", required = true, dataType = "Int", paramType = "query")
+//    })
+    @ApiResponses({ // 응답 코드에 대한 설명
+            @ApiResponse(code=200, message="성공")
+    })
+    @GetMapping("/withdraw")
+    public ResponseEntity<ResponseDTO> Withdraw(@RequestBody MemberDTO memberDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원탈퇴 성공", ""));
     }
 
 
