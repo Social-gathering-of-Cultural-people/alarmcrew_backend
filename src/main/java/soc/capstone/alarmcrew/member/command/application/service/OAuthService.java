@@ -1,4 +1,4 @@
-package soc.capstone.alarmcrew.member.query.application.service;
+package soc.capstone.alarmcrew.member.command.application.service;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

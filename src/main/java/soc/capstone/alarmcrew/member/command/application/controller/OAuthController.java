@@ -1,12 +1,12 @@
-package soc.capstone.alarmcrew.member.query.application.controller;
+package soc.capstone.alarmcrew.member.command.application.controller;
 
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import soc.capstone.alarmcrew.common.ResponseDTO;
-import soc.capstone.alarmcrew.member.query.application.dto.MemberDTO;
-import soc.capstone.alarmcrew.member.query.application.service.OAuthService;
+import soc.capstone.alarmcrew.member.command.application.dto.MemberDTO;
+import soc.capstone.alarmcrew.member.command.application.service.OAuthService;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -37,12 +37,6 @@ public class OAuthController {
     public OAuthController(OAuthService oAuthService){this.oAuthService = oAuthService;}
 
     @ApiOperation(value = "카카오 info 받아오기", notes = "카카오 access_token을 받아 정보(회원코드, 닉네임, 프로필사진)를 return") // 매핑 메소드에 대한 설명
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "code", value = "access_code 값", required = true, dataType = "String", paramType = "query"),
-//    })
-    @ApiResponses({ // 응답 코드에 대한 설명
-            @ApiResponse(code=200, message="성공")
-    })
     @ResponseBody
     @GetMapping("/kakao")
     public ResponseEntity<ResponseDTO> kakaoCallback(@RequestParam String code, HttpSession session) {
@@ -65,12 +59,6 @@ public class OAuthController {
     }
 
     @ApiOperation(value = "카카오 로그아웃", notes = "카카오 로그아웃") // 매핑 메소드에 대한 설명
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "code", value = "access_code 값", required = true, dataType = "String", paramType = "query")
-//    })
-    @ApiResponses({ // 응답 코드에 대한 설명
-            @ApiResponse(code=200, message="성공")
-    })
     @GetMapping("/logout")
     public ResponseEntity<ResponseDTO> logout(HttpSession session) {
         oAuthService.kakaoLogout((String)session.getAttribute("access_Token"));
@@ -81,16 +69,9 @@ public class OAuthController {
     }
 
     @ApiOperation(value = "회원탈퇴", notes = "memberCode 필요") // 매핑 메소드에 대한 설명
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "memberCode", value = "memberCode 값", required = true, dataType = "Int", paramType = "query")
-//    })
-    @ApiResponses({ // 응답 코드에 대한 설명
-            @ApiResponse(code=200, message="성공")
-    })
     @GetMapping("/withdraw")
     public ResponseEntity<ResponseDTO> Withdraw(@RequestBody MemberDTO memberDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원탈퇴 성공", ""));
     }
-
 
 }
