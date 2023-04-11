@@ -1,5 +1,6 @@
 package soc.capstone.alarmcrew.common;
 
+import io.swagger.annotations.ApiModel;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
  * @see
  */
 
+@ApiModel(value = "ResponseDTO", description = "status : 응답코드, message : 메세지, data : data")
 public class ResponseDTO {
 
     private int status;

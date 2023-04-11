@@ -2,7 +2,7 @@ package soc.capstone.alarmcrew.member.command.application.dto;
 
 import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "TB_MEMBER", description = "회원코드, 카카오 ID")
+@ApiModel(value = "MemberDTO", description = "회원코드, 카카오 ID")
 public class MemberDTO {
     private Long memberCode;
     private Long memberId;
