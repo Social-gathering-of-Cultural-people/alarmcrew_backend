@@ -30,6 +30,8 @@ public class SwaggerController {
 //            @ApiImplicitParam(name = "x", value = "x 값", required = true, dataType = "int", paramType = "path", defaultValue = "None")
 //            , @ApiImplicitParam(name = "y", value = "y 값", required = true, dataType = "int", paramType = "query")
 //    })
+    // paramType : @RequestParam - query, @PathVariable - path
+    // required, dataType, paramType은 자동으로 채워짐
     @ApiResponses({ // 응답 코드에 대한 설명
             @ApiResponse(code=200, message="성공"),
             @ApiResponse(code=401, message="접근 권한이 없습니다."),
