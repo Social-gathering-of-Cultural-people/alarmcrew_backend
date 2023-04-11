@@ -29,7 +29,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/oauths")
-@Api(tags = "Kakao Api")
+@Api(tags = "Memebr(kakao) Api")
 public class OAuthController {
 
     private final OAuthService oAuthService;

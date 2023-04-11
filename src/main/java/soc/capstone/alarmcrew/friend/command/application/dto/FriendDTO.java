@@ -2,6 +2,21 @@ package soc.capstone.alarmcrew.friend.command.application.dto;
 
 import io.swagger.annotations.ApiModel;
 
+/**
+ * <pre>
+ * Class : FriendDTO
+ * Comment:
+ * History
+ * ================================================================
+ * DATE             AUTHOR           NOTE
+ * ----------------------------------------------------------------
+ * 2023-04-11         손준형           최초 생성
+ * </pre>
+ *
+ * @author 손준형
+ * @version 1(클래스 버전)
+ * @see
+ */
 @ApiModel(value = "FriendDTO",
         description = "friendCode : 친구코드, memberCode : 친구멤버코드1, friendMemberCode : 친구멤버코드2, friendState : 친구상태")
 public class FriendDTO {
