@@ -28,7 +28,7 @@ import java.util.HashMap;
  */
 
 @RestController
-@RequestMapping("/oauth")
+@RequestMapping("/oauths")
 @Api(tags = "Kakao Api")
 public class OAuthController {
 
@@ -69,7 +69,7 @@ public class OAuthController {
     }
 
     @ApiOperation(value = "회원탈퇴", notes = "memberCode 필요") // 매핑 메소드에 대한 설명
-    @GetMapping("/withdraw")
+    @DeleteMapping("/withdraw")
     public ResponseEntity<ResponseDTO> Withdraw(@RequestBody MemberDTO memberDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원탈퇴 성공", ""));
     }
