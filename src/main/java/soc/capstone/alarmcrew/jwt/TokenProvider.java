@@ -61,27 +61,27 @@ public class TokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public TokenDTO generateTokenDTO(MemberDTO member){
-
-        List<String> roles = Collections.singletonList(member.getMemberRole());
-
-        Claims claims = Jwts
-                .claims()
-                .setSubject(member.getMemberEmail());
-
-        claims.put(AUTHORITIES_KEY, roles);
-
-        long now = (new Date()).getTime();
-
-        Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
-        String accessToken = Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(accessTokenExpiresIn)
-                .signWith(key, SignatureAlgorithm.HS512)
-                .compact();
-
-        return new TokenDTO(BEARER_TYPE, member.getMemberName(), accessToken, accessTokenExpiresIn.getTime());
-    }
+//    public TokenDTO generateTokenDTO(MemberDTO member){
+//
+//        List<String> roles = Collections.singletonList(member.getMemberRole());
+//
+//        Claims claims = Jwts
+//                .claims()
+//                .setSubject(member.getMemberEmail());
+//
+//        claims.put(AUTHORITIES_KEY, roles);
+//
+//        long now = (new Date()).getTime();
+//
+//        Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
+//        String accessToken = Jwts.builder()
+//                .setClaims(claims)
+//                .setExpiration(accessTokenExpiresIn)
+//                .signWith(key, SignatureAlgorithm.HS512)
+//                .compact();
+//
+//        return new TokenDTO(BEARER_TYPE, member.getMemberName(), accessToken, accessTokenExpiresIn.getTime());
+//    }
 
     public String getUserId(String accessToken){
         return Jwts
@@ -132,38 +132,4 @@ public class TokenProvider {
             return e.getClaims();
         }
     }
-
-    public String getKakaoAccessToken(String code) throws JsonProcessingException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-        body.add("grant_type", "authorization_code");
-        body.add("client_id","dec28fd3dd5d81e0b10184358994c44c");
-        body.add("redirect_uri", "http://localhost:8080/oauth/kakao");
-        body.add("code", code);
-
-        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
-        RestTemplate restTemplate = new RestTemplate();
-        System.out.println("restTemplate = " + restTemplate);
-        ResponseEntity<String> response = restTemplate.exchange(
-                "https://kauth.kakao.com/oauth/token",
-                HttpMethod.POST,
-                kakaoTokenRequest,
-                String.class
-        );
-        System.out.println("response = " + response);
-        String responseBody = response.getBody();
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(responseBody);
-        return jsonNode.get("access_token").asText();
-    }
-
-//    public Authentication forceLogin(MemberDTO member){
-//
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(member, null, member.getAuthorities());
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        return authentication;
-//    }
-
 }
