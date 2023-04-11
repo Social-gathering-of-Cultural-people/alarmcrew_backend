@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/friends")
-@Api(tags = "Friends Api")
+@Api(tags = "Friend Api")
 public class FriendController {
 
     @ApiOperation(value = "친구 요청", notes = "친구 요청 보내기") // 매핑 메소드에 대한 설명

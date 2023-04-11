@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/friends")
-@Api(tags = "Friends Api")
+@Api(tags = "Friend Api")
 public class FriendQueryController {
 
     @ApiOperation(value = "친구 요청 정보 조회", notes = "나에게 친구 추가를 건 사람들에 대한 정보") // 매핑 메소드에 대한 설명
