@@ -36,7 +36,10 @@ public class OAuthController {
 
     public OAuthController(OAuthService oAuthService){this.oAuthService = oAuthService;}
 
-    @ApiOperation(value = "카카오 info 받아오기", notes = "카카오 access_token을 받아 정보(회원코드, 닉네임, 프로필사진)를 return") // 매핑 메소드에 대한 설명
+    @ApiOperation(value = "카카오 info 받아오기", notes = "입력값 : 카카오 access_token랑 session정보") // 매핑 메소드에 대한 설명
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "code", value = "카카오 accessToken 값", defaultValue = "None")
+    })
     @ResponseBody
     @GetMapping("/kakao")
     public ResponseEntity<ResponseDTO> kakaoCallback(@RequestParam String code, HttpSession session) {
@@ -58,7 +61,7 @@ public class OAuthController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카카오 로그인 성공", ""));
     }
 
-    @ApiOperation(value = "카카오 로그아웃", notes = "카카오 로그아웃") // 매핑 메소드에 대한 설명
+    @ApiOperation(value = "카카오 로그아웃", notes = "입력값 : session정보") // 매핑 메소드에 대한 설명
     @GetMapping("/logout")
     public ResponseEntity<ResponseDTO> logout(HttpSession session) {
         oAuthService.kakaoLogout((String)session.getAttribute("access_Token"));
@@ -68,9 +71,12 @@ public class OAuthController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카카오 로그아웃 성공", ""));
     }
 
-    @ApiOperation(value = "회원탈퇴", notes = "memberCode 필요") // 매핑 메소드에 대한 설명
+    @ApiOperation(value = "회원탈퇴", notes = "회원탈퇴") // 매핑 메소드에 대한 설명
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "accessToken 값", defaultValue = "None")
+    })
     @DeleteMapping("/withdraw")
-    public ResponseEntity<ResponseDTO> Withdraw(@RequestBody MemberDTO memberDTO) {
+    public ResponseEntity<ResponseDTO> Withdraw(@RequestHeader(value="Authorization")  String accessToken) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원탈퇴 성공", ""));
     }
 
