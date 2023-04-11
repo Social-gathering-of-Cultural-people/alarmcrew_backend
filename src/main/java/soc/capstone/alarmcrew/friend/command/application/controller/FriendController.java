@@ -36,7 +36,7 @@ public class FriendController {
     public ResponseEntity<ResponseDTO> result(@RequestHeader(value="Authorization") String accessToken, @RequestBody FriendDTO friendDTO){
         System.out.println("친구요청결과 API");
         System.out.println("friendDTO = " + friendDTO);
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "친구요청결과 확인", ""));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "친구요청결과 확인", " "));
     }
 
 }
